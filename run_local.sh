@@ -11,7 +11,7 @@ else
     cd backend
     composer install
     cp .env.example .env
-    php artisan key:generate`
+    php artisan key:generate
     php artisan migrate --force
     php artisan storage:link || true
     cd ..

@@ -25,7 +25,7 @@ One more thing for me it works well on linux but i don't know about windows 😭
 ./run_local.sh 
 ```
 
-All thank to me you're wellcome 😁😁😁
+All thank to me you're wellcome 😁😁😁.
 Or if you want to run on docker, before run docker you need to setup docker first
 And one more thing it have any problem please open issue
 
