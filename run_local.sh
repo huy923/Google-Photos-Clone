@@ -3,6 +3,33 @@
 # Exit on error
 set -e
 
+# Trap to kill child processes on exit
+trap "pkill -P $$ 2>/dev/null || true" EXIT
+
+# Check PHP
+if ! command -v php >/dev/null 2>&1; then
+    echo "❌ PHP is not installed. Please install PHP 8+"
+    exit 1
+fi
+
+# Check Composer
+if ! command -v composer >/dev/null 2>&1; then
+    echo "❌ Composer is not installed. Install it here: https://getcomposer.org/"
+    exit 1
+fi
+
+# Check Yarn
+if ! command -v yarn >/dev/null 2>&1; then
+    echo "❌ Yarn is not installed. Run: npm install -g yarn"
+    exit 1
+fi
+
+# Check if script is run in bash
+if [ -z "$BASH_VERSION" ]; then
+    echo "❌ This script must be run in Bash (Git Bash, WSL, macOS or Linux)."
+    exit 1
+fi
+
 # Install backend dependencies
 if [ -d "backend/vendor" ]; then
     echo "✅ Backend dependencies already installed."
@@ -72,7 +99,6 @@ case "$OSTYPE" in
 
   msys*|cygwin*|mingw*)
     echo "Detected Windows (Git Bash/Cygwin/MSYS)"
-    # On Windows sed behaves like GNU sed (no need for '')
     sed -i "s|APP_URL=.*|APP_URL=http://$IP:8000|" backend/.env 
     sed -i "s|DB_HOST=.*|DB_HOST=127.0.0.1|" backend/.env
     sed -i "s|DB_USERNAME=.*|DB_USERNAME=root|" backend/.env
@@ -97,6 +123,7 @@ echo ""
 echo "✅ Configuration complete!"
 echo "🚀 Your API URL is: http://$IP:8000"
 echo "🌐 Open browser on same Wi-Fi: http://$IP:3000"
+echo "📌 Press CTRL + C to stop everything"
 echo ""
 
 # Kill any existing processes on ports 8000 and 3000
@@ -118,7 +145,5 @@ yarn run dev &
 FRONTEND_PID=$!
 echo "Frontend PID: $FRONTEND_PID"
 
-# Trap to kill both processes on exit
-trap "kill $BACKEND_PID $FRONTEND_PID 2>/dev/null" EXIT
 
 wait

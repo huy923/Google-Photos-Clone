@@ -64,7 +64,7 @@ Xây dựng một ứng dụng web cho phép người dùng **đăng nhập, t�
 
 ## Yêu cầu kỹ thuật
 
-- Sử dụng cấu trúc project theo chuẩn Laravel [https://laravel.com/docs/12.x/structure](https://laravel.com/docs/12.x/structure)  
+- Sử dụng cấu trúc project theo chuẩn Laravel [https://laravel.com/docs/12.x/structure](https://laravel.com/docs/12.x/structure)  ✅
 - Sử dụng Typescript  ✅
 - Viết README.md chi tiết về ứng dụng, bao gồm mô tả chức năng, các bước cài đặt  
 - Viết Unit Test  
